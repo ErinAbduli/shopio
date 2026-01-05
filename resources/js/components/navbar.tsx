@@ -22,8 +22,15 @@ import { Button } from '@/components/ui/button';
 
 import { login } from '../routes';
 
+import { toast } from 'sonner';
+
 const Navbar = () => {
     const { auth } = usePage<SharedData>().props;
+
+    const handleLogoutClick = () => {
+        toast.warning('You have been logged out.', { duration: 3000 });
+    };
+
     return (
         <nav className="flex w-full items-center justify-between overflow-visible border-b px-7">
             <div className="flex items-center gap-2">
@@ -69,7 +76,14 @@ const Navbar = () => {
                                                 <Link href="#">Orders</Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
-                                                <Link href="#">Logout</Link>
+                                                <Link
+                                                    href="/logout"
+                                                    method="post"
+                                                    as="button"
+                                                    onClick={handleLogoutClick}
+                                                >
+                                                    Logout
+                                                </Link>
                                             </NavigationMenuLink>
                                         </li>
                                     </ul>
