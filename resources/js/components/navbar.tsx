@@ -1,11 +1,17 @@
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
+    NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 import {
     InputGroup,
@@ -16,7 +22,7 @@ import {
 import { SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
-import { SearchIcon, ShoppingBasket } from 'lucide-react';
+import { ChevronDown, SearchIcon, ShoppingBasket } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -32,11 +38,11 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="flex w-full items-center justify-between overflow-visible border-b px-7">
+        <nav className="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b bg-background px-7">
             <div className="flex items-center gap-2">
                 <h1 className="text-lg font-bold">Shopio</h1>
             </div>
-            <div className="flex h-15 items-center justify-center px-4">
+            <div className="flex items-center justify-center px-4">
                 <NavigationMenu>
                     <NavigationMenuList className="flex gap-5">
                         <NavigationMenuItem>
@@ -53,6 +59,7 @@ const Navbar = () => {
                             </InputGroup>
                         </NavigationMenuItem>
                     </NavigationMenuList>
+                    <NavigationMenuViewport className="top-full" />
                 </NavigationMenu>
             </div>
             <div className="flex flex-row gap-3">
@@ -60,37 +67,36 @@ const Navbar = () => {
                     <ShoppingBasket /> Cart
                 </Button>
                 {auth.user ? (
-                    <NavigationMenu>
-                        <NavigationMenuList>
-                            <NavigationMenuItem className="hidden md:block">
-                                <NavigationMenuTrigger>
-                                    {auth.user.name || 'Account'}
-                                </NavigationMenuTrigger>
-                                <NavigationMenuContent>
-                                    <ul className="grid w-[80px] gap-4">
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#">Settings</Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#">Orders</Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/logout"
-                                                    method="post"
-                                                    as="button"
-                                                    onClick={handleLogoutClick}
-                                                >
-                                                    Logout
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
-                                    </ul>
-                                </NavigationMenuContent>
-                            </NavigationMenuItem>
-                        </NavigationMenuList>
-                    </NavigationMenu>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="hidden md:flex">
+                                Profile <ChevronDown className="ml-1" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-40">
+                            <DropdownMenuItem asChild>
+                                <Link href="#" className="cursor-pointer">
+                                    Settings
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="#" className="cursor-pointer">
+                                    Orders
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link
+                                    href="/logout"
+                                    method="post"
+                                    as="button"
+                                    onClick={handleLogoutClick}
+                                    className="w-full cursor-pointer"
+                                >
+                                    Logout
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 ) : (
                     <Button variant="outline">
                         <Link href={login()}>Log In</Link>

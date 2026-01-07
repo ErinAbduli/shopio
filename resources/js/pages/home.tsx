@@ -1,9 +1,12 @@
+import FilterBox from '@/components/filter-box';
 import AppLayout from '@/layouts/app-layout';
 
 const Home = () => {
     return (
         <AppLayout>
-            <div>Hello</div>
+            <div>
+                <FilterBox />
+            </div>
         </AppLayout>
     );
 };

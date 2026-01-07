@@ -195,12 +195,3 @@
         cursor: pointer;
     }
 }
-
-html {
-    overflow-x: hidden;
-}
-
-body {
-    overflow-x: hidden;
-    overflow-y: auto;
-}
