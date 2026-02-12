@@ -4,6 +4,8 @@ const FilterBox = () => {
             <h3>Filter</h3>
             <div>
                 <div>Price</div>
+                <div>Price</div>
+                <div>Price</div>
             </div>
         </div>
     );
